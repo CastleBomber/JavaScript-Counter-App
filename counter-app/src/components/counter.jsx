@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
-class Counter extends Component { 
-  render() {
+class Counter extends Component {
+  render() {  
+    console.log("COUNTERS - rendered");
+
     return (
       <div>
         {this.props.children}
@@ -11,7 +13,7 @@ class Counter extends Component {
           className="btn btn-secondary btn-sm"
         >
           Increment
-        </button> 
+        </button>
         <button
           onClick={() => this.props.onDelete(this.props.counter.id)}
           className="btn btn-danger btn-sm m-2"
@@ -22,6 +24,19 @@ class Counter extends Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('PrevProps', prevProps);
+    console.log('PrevState', prevState); 
+
+    if(prevProps.counter.value != this.props.counter.value){
+      // Ajax call and get new data from the server
+    }
+  }
+
+  componentWillUnmount(){
+    console.log('Component - Unmount');
+  }
+
   formatCount() {
     const { value: count } = this.props.counter;
     return count === 0 ? "Zero" : count;
@@ -30,7 +45,7 @@ class Counter extends Component {
   getBadgeClasses() {
     let classes = "badge m-2 badge-";
     classes += this.props.counter.value === 0 ? "warning" : "primary";
-    return classes; 
+    return classes;
   }
 }
 
